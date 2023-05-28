@@ -20,23 +20,14 @@ def read(*parts):
         return fobj.read()
 
 
-# finds the version of the package
-def find_version(*file_paths):
-    version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
-
-
 # setup main
 # required modules
-install_requires = ["yamc_server>=1.1.0", "paho-mqtt==1.6.1"]
+install_requires = ["yamc_server>=1.1.0", "paho-mqtt>=1.6.1", "setuptools_scm>=6.0.1"]
 
 setup(
     name="yamc-mqtt",
-    version=find_version("yamc_mqtt", "__init__.py"),
-    description="MQTT providers for yamc",
+    use_scm_version={"root": ".", "relative_to": __file__, "local_scheme": "node-and-timestamp"},
+    description="MQTT plugin for yamc",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Tomas Vitvar",
@@ -49,7 +40,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.11",
     ],
 )
