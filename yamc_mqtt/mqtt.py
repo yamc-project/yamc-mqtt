@@ -133,6 +133,7 @@ class MQTTWriter(Writer, MQTTBase):
         self.write_empty = False
 
     def healthcheck(self):
+        super().healthcheck()
         return self.connected
 
     def do_write(self, items):
